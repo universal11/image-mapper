@@ -64,9 +64,14 @@ public class ImageMapper {
                 String input = ImageMapper.readFile(inputPath);
                 HtmlImageGenerator imageGenerator = new HtmlImageGenerator();
                 imageGenerator.loadUrl("file://" + inputPath);
-                //imageGenerator.loadHtml(input);
-                imageGenerator.saveAsImage(name + ".png");
-                imageGenerator.saveAsHtmlWithMap(name + ".html", name + ".png");
+                
+                File outputDirectory = new File(outputPath);
+                if(!outputDirectory.exists()){
+                    outputDirectory.mkdirs();
+                }
+                
+                imageGenerator.saveAsImage(outputPath + "/" + name + ".png");
+                imageGenerator.saveAsHtmlWithMap(outputPath + "/" + name + ".html", outputPath + "/" + name + ".png");
             } 
             catch (IOException ex) {
                 Logger.getLogger(ImageMapper.class.getName()).log(Level.SEVERE, null, ex);
